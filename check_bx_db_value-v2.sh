@@ -35,7 +35,6 @@ fi
 echo ${CLParams[single_num_value_query]} | grep -i -q -E 'delete|update|insert|drop' && printf "query \n${CLParams[single_num_value_query]}\nisn't allowed\n" && exit 30
 # получение значений переменных из php-config -n -- без php.ini , -r -- выполнить код без тэгов <?...?>
 for key in "${DBSettings_keys[@]}" ; do 
-  #    DBSettings[$key]="$($php -n -r 'include("'${CLParams[path_to_bxdb_config]}'"); print $'$key';')"
   DBSettings[$key]="$($php -n -r '$arSet = include("'${CLParams[path_to_bxdb_config]}'"); print_r($arSet["connections"]["value"]["default"]["'${key}'"]);')"
   printf "\n\t ${DBSettings[$key]} \n"
 done
